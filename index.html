@@ -20,7 +20,8 @@
             alt=""
           />
           <button class="menu-button">
-            <img class="bar-img" src="./assets/Bar.svg" alt="" />
+            <!-- <img class="bar-img" src="./assets/Bar.svg" alt="" /> -->
+            <i class="fa-solid fa-bars bar-img"></i>
           </button>
         </div>
        
@@ -100,6 +101,7 @@ const btnIndicator = document.querySelector('.btn__indicator');
 const icon = document.querySelector('.btn__icon');
 const logoImg = document.querySelector('.logo-img');
 const moon =document.querySelector('.moon');
+const barIcon = document.querySelector('.bar-img')
 
     btnMenu.onclick = function () {
       sidebar.classList.toggle('active');
@@ -118,11 +120,13 @@ if(body.classList.contains('darkmode')){
   logoImg.src = './assets/alarado-icon-homepage-dark.svg'
   btnIconContainer.style.backgroundColor = '#ffffff';
   btnIndicator.style.backgroundColor = '#909193';
+  barIcon.style.color = '#ffffff'
 }else{
   moon.src = './assets/Moon_fill_light.svg';
   logoImg.src = './assets/alarado-icon-homepage.svg'
   btnIconContainer.style.backgroundColor = '#111729';
   btnIndicator.style.backgroundColor = '#ffffff';
+  barIcon.style.color = '#2b2b2b'
 }
 })
 
