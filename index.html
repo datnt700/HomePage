@@ -1,0 +1,163 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script
+    src="https://kit.fontawesome.com/af3b0c56c5.js"
+    crossorigin="anonymous"
+  ></script>
+    <title>Document</title>
+  </head>
+  <body >
+    <div class="home-page">
+      <div class="container">
+        <div class="header">
+          <img
+            class="logo-img"
+            src="./assets/alarado-icon-homepage.svg"
+            alt=""
+          />
+          <button class="menu-button">
+            <img class="bar-img" src="./assets/Bar.svg" alt="" />
+          </button>
+        </div>
+       
+        <div class="main">
+          <img
+            class="hero-img"
+            src="./assets/hero-image-simple-homepage.png"
+            alt=""
+          />
+          <div class="content">
+            <p class="text">😎<strong> Simple way to communicate</strong></p>
+            <h1 class="title">Actions for Accessibility in Design</h1>
+            <p class="description">
+              The fastest way to build and deploy websites with resusable
+              components.
+            </p>
+            <div class="link-feature">
+              <button class="started-button">GET STARTED</button>
+              <a class="demo-link" href="">Get live demo</a>
+              <div class="feature">
+                <img src="./assets/Done_ring_round_fill.svg" alt="" />
+                <span class="small-text">No credit card required</span>
+              </div>
+              <div class="feature">
+                <img src="./assets/Done_ring_round_fill.svg" alt="" />
+                <span class="small-text">No software to install</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="sidebar">
+        <div class="close-icon">
+          <button class="close-button"><i class="fa-solid fa-x "></i>
+          </button>
+        </div>
+        <ul class="list">
+          <li class="list-item">
+            <a class="link-item">About us</a>
+          </li>
+          <li class="list-item">
+            <a class="link-item">Product</a>
+          </li class="list-item">
+          <li class="list-item">
+            <a class="link-item">Resource</a>
+          </li>
+          <li class="list-item">
+            <a class="link-item">Contact</a>
+          </li>
+          <li class="list-item">
+            <div class="btn">
+              <div class="btn__indicator">   </div>
+                <button class="btn__icon-container">
+                  <img class="btn__icon moon" src="./assets/Moon_fill_light.svg" alt="">
+                  <img class="btn__icon sun" src="./assets/Sun_fill.svg" alt="">
+                </button>
+           
+           
+            </div>
+      
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    let btnMenu = document.querySelector('.menu-button');
+    let btnClose = document.querySelector('.close-button')
+    let sidebar = document.querySelector('.sidebar');
+    const body = document.querySelector('body');
+const btn = document.querySelector('.btn');
+const btnIconContainer = document.querySelector('.btn__icon-container');
+const btnIndicator = document.querySelector('.btn__indicator');
+const icon = document.querySelector('.btn__icon');
+const logoImg = document.querySelector('.logo-img');
+const moon =document.querySelector('.moon');
+
+    btnMenu.onclick = function () {
+      sidebar.classList.toggle('active');
+    }
+    btnClose.onclick = function () {
+      sidebar.classList.toggle('active');
+    }
+    
+
+btn.addEventListener('click', () => {
+
+body.classList.toggle('darkmode');
+
+if(body.classList.contains('darkmode')){
+  icon.src = './assets/Moon_fill.svg';
+  logoImg.src = './assets/alarado-icon-homepage-dark.svg'
+  btnIconContainer.style.backgroundColor = '#ffffff';
+  btnIndicator.style.backgroundColor = '#909193';
+}else{
+  moon.src = './assets/Moon_fill_light.svg';
+  logoImg.src = './assets/alarado-icon-homepage.svg'
+  btnIconContainer.style.backgroundColor = '#111729';
+  btnIndicator.style.backgroundColor = '#ffffff';
+}
+})
+
+//   const lightModeBtn = document.getElementById('light-mode-btn');
+//   const darkModeBtn = document.getElementById('dark-mode-btn');
+//   const logoImg = document.querySelector('.logo-img');
+
+//   if (!lightModeBtn || !darkModeBtn || !logoImg) {
+//     console.error("One or more elements are not found in the DOM.");
+//     return;
+//   }
+
+//   const currentTheme = localStorage.getItem('theme');
+//   if (currentTheme === 'dark') {
+//     document.body.classList.add('dark-mode');
+//   }
+
+
+//   lightModeBtn.onclick = () => {
+//     document.body.classList.remove('dark-mode');
+//     logoImg.src = './assets/alarado-icon-homepage.svg';
+//     localStorage.setItem('theme', 'light');
+//   };
+
+//   darkModeBtn.onclick = () => {
+//     document.body.classList.toggle('dark-mode');
+//     if (document.body.classList.contains('dark-mode')) {
+//       logoImg.src = './assets/alarado-icon-homepage-dark.svg';
+//       localStorage.setItem('theme', 'dark');
+//     } else {
+//       logoImg.src = './assets/alarado-icon-homepage.svg';
+//       localStorage.setItem('theme', 'light');
+//     }
+//   };
+// })
+
+  </script>
+</html>
