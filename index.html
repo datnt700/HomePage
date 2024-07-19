@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -19,8 +19,33 @@
             src="./assets/alarado-icon-homepage.svg"
             alt=""
           />
+          <ul class="list">
+            <li class="list-item">
+              <a class="link-item">About us</a>
+            </li>
+            <li class="list-item">
+              <a class="link-item">Product</a>
+            </li class="list-item">
+            <li class="list-item">
+              <a class="link-item">Resource</a>
+            </li>
+            <li class="list-item">
+              <a class="link-item">Contact</a>
+            </li>
+     
+          </ul>
+          <div class="btn btn-large">
+            <div class="btn__indicator">   </div>
+              <button class="btn__icon-container" type="button"
+              data-theme-toggle>
+                <img class="btn__icon moon" src="./assets/Moon_fill_light.svg" alt="">
+                <img class="btn__icon sun" src="./assets/Sun_fill.svg" alt="">
+              </button>
+             
+         
+          </div>
+    
           <button class="menu-button">
-            <!-- <img class="bar-img" src="./assets/Bar.svg" alt="" /> -->
             <i class="fa-solid fa-bars bar-img"></i>
           </button>
         </div>
@@ -74,13 +99,14 @@
             <a class="link-item">Contact</a>
           </li>
           <li class="list-item">
-            <div class="btn">
+            <div class="btn btn-small">
               <div class="btn__indicator">   </div>
-                <button class="btn__icon-container">
+                <button class="btn__icon-container" type="button"
+                data-theme-toggle>
                   <img class="btn__icon moon" src="./assets/Moon_fill_light.svg" alt="">
                   <img class="btn__icon sun" src="./assets/Sun_fill.svg" alt="">
                 </button>
-           
+               
            
             </div>
       
@@ -91,18 +117,21 @@
   </body>
 
   <script>
+
     let btnMenu = document.querySelector('.menu-button');
     let btnClose = document.querySelector('.close-button')
     let sidebar = document.querySelector('.sidebar');
     const body = document.querySelector('body');
-const btn = document.querySelector('.btn');
+const btnSmall = document.querySelector('.btn-small');
+const btnLarge = document.querySelector('.btn-large');
+
 const btnIconContainer = document.querySelector('.btn__icon-container');
 const btnIndicator = document.querySelector('.btn__indicator');
 const icon = document.querySelector('.btn__icon');
 const logoImg = document.querySelector('.logo-img');
 const moon =document.querySelector('.moon');
 const barIcon = document.querySelector('.bar-img')
-
+const sun = document.querySelector('.sun');
     btnMenu.onclick = function () {
       sidebar.classList.toggle('active');
     }
@@ -110,58 +139,105 @@ const barIcon = document.querySelector('.bar-img')
       sidebar.classList.toggle('active');
     }
     
+    console.log(moon);
 
-btn.addEventListener('click', () => {
+/**
+* Utility function to calculate the current theme setting.
+* Look for a local storage value.
+* Fall back to system setting.
+* Fall back to light mode.
+*/
+function calculateSettingAsThemeString({ localStorageTheme, systemSettingDark }) {
+  if (localStorageTheme !== null) {
+    return localStorageTheme;
+  }
 
-body.classList.toggle('darkmode');
+  if (systemSettingDark.matches) {
+    return "dark";
+  }
 
-if(body.classList.contains('darkmode')){
-  icon.src = './assets/Moon_fill.svg';
-  logoImg.src = './assets/alarado-icon-homepage-dark.svg'
-  btnIconContainer.style.backgroundColor = '#ffffff';
-  btnIndicator.style.backgroundColor = '#909193';
-  barIcon.style.color = '#ffffff'
-}else{
-  moon.src = './assets/Moon_fill_light.svg';
-  logoImg.src = './assets/alarado-icon-homepage.svg'
-  btnIconContainer.style.backgroundColor = '#111729';
-  btnIndicator.style.backgroundColor = '#ffffff';
-  barIcon.style.color = '#2b2b2b'
+  return "light";
 }
-})
 
-//   const lightModeBtn = document.getElementById('light-mode-btn');
-//   const darkModeBtn = document.getElementById('dark-mode-btn');
-//   const logoImg = document.querySelector('.logo-img');
-
-//   if (!lightModeBtn || !darkModeBtn || !logoImg) {
-//     console.error("One or more elements are not found in the DOM.");
-//     return;
-//   }
-
-//   const currentTheme = localStorage.getItem('theme');
-//   if (currentTheme === 'dark') {
-//     document.body.classList.add('dark-mode');
-//   }
+/**
+* Utility function to update the button text and aria-label.
+*/
+/**
+* Utility function to update the theme setting on the html tag
+*/
+function updateThemeOnHtmlEl({ theme }) {
+  document.querySelector("html").setAttribute("data-theme", theme);
+}
 
 
-//   lightModeBtn.onclick = () => {
-//     document.body.classList.remove('dark-mode');
-//     logoImg.src = './assets/alarado-icon-homepage.svg';
-//     localStorage.setItem('theme', 'light');
-//   };
+/**
+* On page load:
+*/
 
-//   darkModeBtn.onclick = () => {
-//     document.body.classList.toggle('dark-mode');
-//     if (document.body.classList.contains('dark-mode')) {
-//       logoImg.src = './assets/alarado-icon-homepage-dark.svg';
-//       localStorage.setItem('theme', 'dark');
-//     } else {
-//       logoImg.src = './assets/alarado-icon-homepage.svg';
-//       localStorage.setItem('theme', 'light');
-//     }
-//   };
-// })
+/**
+* 1. Grab what we need from the DOM and system settings on page load
+*/
+const button = document.querySelector("[data-theme-toggle]");
+const localStorageTheme = localStorage.getItem("theme");
+const systemSettingDark = window.matchMedia("(prefers-color-scheme: dark)");
 
+/**
+* 2. Work out the current site settings
+*/
+let currentThemeSetting = calculateSettingAsThemeString({ localStorageTheme, systemSettingDark });
+
+/**
+* 3. Update the theme setting and button text accoridng to current settings
+*/
+updateThemeOnHtmlEl({ theme: currentThemeSetting });
+
+/**
+* 4. Add an event listener to toggle the theme
+*/
+
+
+btnLarge.addEventListener("click", (event) => {
+  if (localStorageTheme) localStorage.removeItem("theme");
+
+  body.classList.toggle('darkmode');
+  const newTheme = currentThemeSetting === "dark" ? "light" : "dark";
+  if(body.classList.contains('darkmode')) {
+    moon.src = './assets/Moon_fill.svg';
+    sun.src= './assets/Sun_fill_light.svg';
+
+  logoImg.src = './assets/alarado-icon-homepage-dark.svg'
+  } else {
+    moon.src = './assets/Moon_fill_light.svg';
+    sun.src= './assets/Sun_fill.svg';
+
+  logoImg.src = './assets/alarado-icon-homepage.svg'
+  }
+  localStorage.setItem("theme", newTheme);
+  updateThemeOnHtmlEl({ theme: newTheme });
+
+  currentThemeSetting = newTheme;
+}); 
+
+btnSmall.addEventListener("click", (event) => {
+
+  body.classList.toggle('darkmode');
+  const newTheme = currentThemeSetting === "dark" ? "light" : "dark";
+  if(body.classList.contains('darkmode')) {
+    moon.src = './assets/Moon_fill_light.svg';
+
+    sun.src= './assets/Sun_fill_light.svg';
+  logoImg.src = './assets/alarado-icon-homepage-dark.svg'
+  } else {
+    moon.src = './assets/Moon_fill.svg';
+
+    sun.src= './assets/Sun_fill.svg';
+
+  logoImg.src = './assets/alarado-icon-homepage.svg'
+  }
+  localStorage.setItem("theme", newTheme);
+  updateThemeOnHtmlEl({ theme: newTheme });
+
+  currentThemeSetting = newTheme;
+}); 
   </script>
 </html>
