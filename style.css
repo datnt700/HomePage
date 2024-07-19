@@ -47,9 +47,6 @@ h1 {
 .header .menu-button .bar-img {
   width: 1rem;
 }
-.header .list {
-  display: none;
-}
 
 .main {
   display: flex;
@@ -137,6 +134,10 @@ h1 {
   font-size: 3rem;
   font-weight: bold;
   color: #111729;
+}
+
+.list-large {
+  display: none;
 }
 
 .sidebar.active {
@@ -238,13 +239,14 @@ h1 {
   .header .logo-img {
     width: 8rem;
   }
-  .list {
+  .list-large {
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     margin: 0;
   }
-  .list .link-item {
+  .list-large .link-item {
     font-size: 1rem;
     font-weight: 400;
   }

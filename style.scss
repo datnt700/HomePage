@@ -51,9 +51,6 @@ h1 {
       width: 1rem;
     }
   }
-  .list {
-    display: none;
-  }
 }
 
 .main {
@@ -139,6 +136,7 @@ h1 {
   padding-left: 3rem;
   gap: 2rem;
   margin-top: 2rem;
+
   .link-item {
     font-size: 3rem;
     font-weight: bold;
@@ -146,6 +144,9 @@ h1 {
   }
 }
 
+.list-large {
+  display: none;
+}
 .sidebar.active {
   width: 65%;
 }
@@ -244,7 +245,7 @@ $large-screen: 1024px;
 // Apply the mixins
 @include respond-to(small) {
   .btn-small {
-    display: flex;
+    display: flex; // Show small button on small screens
   }
   .btn-large {
     display: none;
@@ -271,7 +272,8 @@ $large-screen: 1024px;
       width: 8rem;
     }
   }
-  .list {
+  .list-large {
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
