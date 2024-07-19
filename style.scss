@@ -166,6 +166,10 @@ h1 {
   cursor: pointer;
 }
 
+.btn-large {
+  display: none;
+}
+
 .btn__indicator {
   background-color: #fff;
   width: 1.5rem;
@@ -219,48 +223,6 @@ h1 {
   color: #909193;
 }
 
-// Variables for breakpoints
-$small-screen: 640px;
-$large-screen: 1024px;
-
-// Mixin for media queries
-@mixin respond-to($breakpoint) {
-  @if $breakpoint == small {
-    @media (max-width: $small-screen) {
-      @content;
-    }
-  } @else if $breakpoint == large {
-    @media (min-width: $large-screen) {
-      @content;
-    }
-  }
-}
-
-// Styles for buttons
-.btn-small,
-.btn-large {
-  display: none; // Hide by default
-}
-
-// Apply the mixins
-@include respond-to(small) {
-  .btn-small {
-    display: flex; // Show small button on small screens
-  }
-  .btn-large {
-    display: none;
-  }
-}
-
-@include respond-to(large) {
-  .btn-small {
-    display: none;
-  }
-  .btn-large {
-    display: flex;
-  }
-}
-
 @media screen and (min-width: 1024px) {
   .menu-button {
     display: none;
@@ -295,6 +257,10 @@ $large-screen: 1024px;
 
   .darkmode .link-item {
     color: #ffffff;
+  }
+
+  .btn-large {
+    display: flex;
   }
 }
 @media screen and (min-width: 1280px) {
