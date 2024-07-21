@@ -115,11 +115,12 @@ h1 {
   position: fixed;
   top: 0;
   right: 0;
-  width: 0;
+  width: 65%;
   height: 100%;
   background-color: var(--color-menu);
   transition: all 0.5s ease;
   overflow: hidden;
+  transform: translateX(100%);
 }
 
 .close-icon {
@@ -139,9 +140,9 @@ h1 {
 .list {
   display: flex;
   flex-direction: column;
+  gap: 2rem;
   align-items: center;
   list-style: none;
-  gap: 2rem;
   margin-top: 2rem;
 
   .link-item {
@@ -155,7 +156,7 @@ h1 {
   display: none;
 }
 .sidebar.active {
-  width: 65%;
+  transform: translateX(0);
 }
 
 .container.active {
