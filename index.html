@@ -102,8 +102,8 @@
               <div class="btn__indicator">   </div>
                 <button class="btn__icon-container" type="button"
                 data-theme-toggle>
-                  <img class="btn__icon moon" src="./assets/Moon_fill_light.svg" alt="">
-                  <img class="btn__icon sun" src="./assets/Sun_fill.svg" alt="">
+                  <img class="btn__icon moon small" src="./assets/Moon_fill_light.svg" alt="">
+                  <img class="btn__icon  sun small" src="./assets/Sun_fill.svg" alt="">
                 </button>
                
            
@@ -115,7 +115,7 @@
   </body>
 
   <script>
-
+    let container = document.querySelector('.container')
     let btnMenu = document.querySelector('.menu-button');
     let btnClose = document.querySelector('.close-button')
     let sidebar = document.querySelector('.sidebar');
@@ -127,28 +127,28 @@ const btnIconContainer = document.querySelector('.btn__icon-container');
 const btnIndicator = document.querySelector('.btn__indicator');
 const icon = document.querySelector('.btn__icon');
 const logoImg = document.querySelector('.logo-img');
-const moon =document.querySelector('.moon');
-const barIcon = document.querySelector('.bar-img')
-const sun = document.querySelector('.sun');
+const moon = document.querySelector('.btn__icon.moon');
+  const sun = document.querySelector('.btn__icon.sun');
+  const moonSmall = document.querySelector('.btn__icon.moon.small');
+  const sunSmall = document.querySelector('.btn__icon.sun.small');
+  const barIcon = document.querySelector('.bar-img')
     btnMenu.onclick = function () {
       sidebar.classList.toggle('active');
+    container.classList.toggle('active');
     }
     btnClose.onclick = function () {
       sidebar.classList.toggle('active');
+      container.classList.toggle('active');
     }
     
-    console.log(moon);
-
 /**
 * Utility function to calculate the current theme setting.
 * Look for a local storage value.
 * Fall back to system setting.
 * Fall back to light mode.
 */
-function calculateSettingAsThemeString({ localStorageTheme, systemSettingDark }) {
-  if (localStorageTheme !== null) {
-    return localStorageTheme;
-  }
+function calculateSettingAsThemeString({ systemSettingDark }) {
+
 
   if (systemSettingDark.matches) {
     return "dark";
@@ -176,13 +176,12 @@ function updateThemeOnHtmlEl({ theme }) {
 * 1. Grab what we need from the DOM and system settings on page load
 */
 const button = document.querySelector("[data-theme-toggle]");
-const localStorageTheme = localStorage.getItem("theme");
 const systemSettingDark = window.matchMedia("(prefers-color-scheme: dark)");
 
 /**
 * 2. Work out the current site settings
 */
-let currentThemeSetting = calculateSettingAsThemeString({ localStorageTheme, systemSettingDark });
+let currentThemeSetting = calculateSettingAsThemeString({ systemSettingDark });
 
 /**
 * 3. Update the theme setting and button text accoridng to current settings
@@ -194,48 +193,48 @@ updateThemeOnHtmlEl({ theme: currentThemeSetting });
 */
 
 
+ // Hàm để cập nhật hình ảnh dựa trên theme
+ function updateLogoImg() {
+    if (currentThemeSetting === 'dark') {
+      logoImg.src = './assets/alarado-icon-homepage-dark.svg';
+      moon.src = './assets/Moon_fill.svg';
+      sun.src = './assets/Sun_fill_light.svg';
+      moonSmall.src = './assets/Moon_fill.svg';
+      sunSmall.src = './assets/Sun_fill_light.svg';
+    } else {
+      logoImg.src = './assets/alarado-icon-homepage.svg';
+      moon.src = './assets/Moon_fill_light.svg';
+      sun.src = './assets/Sun_fill.svg';
+      moonSmall.src = './assets/Moon_fill_light.svg';
+      sunSmall.src = './assets/Sun_fill.svg';
+    }
+    console.log(sun)
+  }
+
+ 
+  // Cập nhật hình ảnh ngay khi DOM đã tải xong
+  updateLogoImg();
+
 btnLarge.addEventListener("click", (event) => {
-  if (localStorageTheme) localStorage.removeItem("theme");
 
   body.classList.toggle('darkmode');
   const newTheme = currentThemeSetting === "dark" ? "light" : "dark";
-  if(body.classList.contains('darkmode')) {
-    moon.src = './assets/Moon_fill.svg';
-    sun.src= './assets/Sun_fill_light.svg';
-
-  logoImg.src = './assets/alarado-icon-homepage-dark.svg'
-  } else {
-    moon.src = './assets/Moon_fill_light.svg';
-    sun.src= './assets/Sun_fill.svg';
-
-  logoImg.src = './assets/alarado-icon-homepage.svg'
-  }
-  localStorage.setItem("theme", newTheme);
   updateThemeOnHtmlEl({ theme: newTheme });
 
   currentThemeSetting = newTheme;
+  updateLogoImg();
+
 }); 
 
 btnSmall.addEventListener("click", (event) => {
 
   body.classList.toggle('darkmode');
   const newTheme = currentThemeSetting === "dark" ? "light" : "dark";
-  if(body.classList.contains('darkmode')) {
-    moon.src = './assets/Moon_fill_light.svg';
-
-    sun.src= './assets/Sun_fill_light.svg';
-  logoImg.src = './assets/alarado-icon-homepage-dark.svg'
-  } else {
-    moon.src = './assets/Moon_fill.svg';
-
-    sun.src= './assets/Sun_fill.svg';
-
-  logoImg.src = './assets/alarado-icon-homepage.svg'
-  }
-  localStorage.setItem("theme", newTheme);
   updateThemeOnHtmlEl({ theme: newTheme });
 
   currentThemeSetting = newTheme;
+  updateLogoImg();
+
 }); 
   </script>
 </html>
